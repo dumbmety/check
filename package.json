@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "prettier": {
+    "arrowParens": "avoid",
     "semi": false,
     "singleQuote": false
   },
@@ -13,10 +14,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@fontsource/manrope": "^4.5.0",
+    "@fontsource/inter": "^4.5.0",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-svg": "^14.0.12",
+    "simplebar-react": "^2.3.5",
     "styled-components": "^5.3.1"
   },
   "devDependencies": {

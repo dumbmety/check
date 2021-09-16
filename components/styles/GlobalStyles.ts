@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle`
     outline: 0;
     font-size: inherit;
     box-sizing: border-box;
+    line-height: 1.5;
   }
 
   body {
@@ -18,7 +19,9 @@ const GlobalStyles = createGlobalStyle`
 
   body, input, button {
     font-size: 16px;
-    font-family: "Manrope", serif;
+    font-family: "Inter", serif;
+    height: 100vh;
+    overflow: hidden;
   }
 
   h1, h2, h3, h4, h5, h6, strong {
@@ -27,6 +30,19 @@ const GlobalStyles = createGlobalStyle`
 
   button {
     cursor: pointer;
+  }
+
+  ul, ol {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: ${theme.colors.white500};
+  }
+
+  .simplebar-scrollbar:before {
+    background: ${theme.colors.gray200};
   }
 `
 
