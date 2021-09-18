@@ -2,19 +2,19 @@ import Link from "next/link"
 import styled from "styled-components"
 
 import { theme } from "../styles/ThemeStyles"
-import Stack from "../elements/Stack"
-import Icon from "../elements/Icon"
+import Stack from "../shared/Stack"
+import Icon from "../shared/Icon"
 
 const projects = [
   {
-    icon: "mask",
+    icon: "Mask",
     color: theme.colors.indigo400,
     href: "beta",
     name: "Beta",
     number: 17,
   },
   {
-    icon: "mask",
+    icon: "Mask",
     color: theme.colors.green400,
     href: "ideas",
     name: "Ideas",

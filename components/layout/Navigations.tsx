@@ -23,6 +23,10 @@ export default function Navigations() {
 }
 
 const Wrapper = styled.nav`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
   width: 300px;
   background: ${theme.colors.black400};
 `

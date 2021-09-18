@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
 import { theme } from "../styles/ThemeStyles"
-import Icon from "../elements/Icon"
-import Stack from "../elements/Stack"
+import Icon from "../shared/Icon"
+import Stack from "../shared/Stack"
 
 interface IUserStatusProps {
   status: "syncing" | "synced"
@@ -16,7 +16,7 @@ export default function UserStatus(props: IUserStatusProps) {
         {props.status === "syncing" && (
           <IconStatusWrapper>
             <IconStatus status={props.status}>
-              <Icon name="refresh" width={8} height={8} />
+              <Icon name="Refresh" width={8} height={8} />
             </IconStatus>
           </IconStatusWrapper>
         )}

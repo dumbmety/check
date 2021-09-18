@@ -12,16 +12,22 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
+    height: 100vh;
     color: ${theme.colors.white500};
     background: ${theme.colors.black500};
     -webkit-font-smoothing: antialiased;
   }
 
-  body, input, button {
+  body, input, button, textarea {
     font-size: 16px;
     font-family: "Inter", serif;
-    height: 100vh;
+    border: 0;
+    outline: 0;
     overflow: hidden;
+  }
+
+  input, button, textarea {
+    background: transparent;
   }
 
   h1, h2, h3, h4, h5, h6, strong {

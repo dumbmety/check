@@ -5,6 +5,8 @@ export const theme = {
     indigo300: "#7885F2",
     indigo400: "#6F7DF1",
     indigo500: "#5C6CEF",
+    indigo600: "#4755c5",
+    indigo700: "#3c4bbe",
 
     green100: "#B2E8A5",
     green200: "#A5E082",

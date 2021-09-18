@@ -2,14 +2,14 @@ import Link from "next/link"
 import styled from "styled-components"
 
 import { theme } from "../styles/ThemeStyles"
-import Icon from "../elements/Icon"
+import Icon from "../shared/Icon"
 
 const list_items = [
-  { url: "/", icon: "inbox", name: "Inbox", number: 4 },
-  { url: "/today", icon: "sun", name: "Today", number: 2 },
-  { url: "/tomorrow", icon: "calendar-number", name: "Tomorrow", number: 4 },
-  { url: "/snoozed", icon: "calendar", name: "Snoozed", number: 6 },
-  { url: "/trash", icon: "trash", name: "Trash" },
+  { url: "/", icon: "Inbox", name: "Inbox", number: 4 },
+  { url: "/today", icon: "Sun", name: "Today", number: 2 },
+  { url: "/tomorrow", icon: "CalendarNumber", name: "Tomorrow", number: 4 },
+  { url: "/snoozed", icon: "Calendar", name: "Snoozed", number: 6 },
+  { url: "/trash", icon: "Trash", name: "Trash" },
 ]
 
 export default function MenuItems() {

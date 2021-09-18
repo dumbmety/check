@@ -2,8 +2,8 @@ import Link from "next/link"
 import styled from "styled-components"
 
 import { theme } from "../styles/ThemeStyles"
-import Stack from "../elements/Stack"
-import Icon from "../elements/Icon"
+import Stack from "../shared/Stack"
+import Icon from "../shared/Icon"
 
 const folders = [
   { href: "check", name: "Check" },
@@ -19,7 +19,7 @@ export default function Folders() {
           <Item key={folder.href}>
             <Link href={`/folder/${folder.href}`}>
               <a>
-                <Icon name="folder" width={20} height={20} />
+                <Icon name="Folder" width={20} height={20} />
                 <span>{folder.name}</span>
               </a>
             </Link>
