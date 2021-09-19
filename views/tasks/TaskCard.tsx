@@ -4,19 +4,22 @@ import Icon from "../../components/shared/Icon"
 import { theme } from "../../components/styles/ThemeStyles"
 
 interface ITaskCardProps {
-  completed: boolean
+  checked: boolean
 
   id: string
   title: string
   date: string
   file: string
-  description: string
-
   priority: string
+  description: string
 
   onEdit?: () => void
   onDelete?: () => void
-  onComplete: (id: string) => void
+  onChecked: (id: string) => void
+}
+
+interface IWrapperProps {
+  isChecked: boolean
 }
 
 interface IGroupProps {
@@ -24,22 +27,18 @@ interface IGroupProps {
 }
 
 export default function TaskCard(props: ITaskCardProps) {
-  let color = ""
-
-  if (props.priority === "high") color = theme.colors.red300
-  else if (props.priority === "medium") color = theme.colors.indigo300
-  else if (props.priority === "low") color = theme.colors.gray300
-
   return (
-    <Wrapper>
+    <Wrapper isChecked={props.checked}>
       <Group>
         <Checkbox
-          checked={props.completed}
-          onClick={() => props.onComplete(props.id)}
+          checked={props.checked}
+          onClick={() => props.onChecked(props.id)}
         />
       </Group>
       <Group isFull>
         <Title>{props.title}</Title>
+      </Group>
+      <Group>
         <Info>
           {props.date && (
             <Date>
@@ -51,20 +50,29 @@ export default function TaskCard(props: ITaskCardProps) {
           {props.file && <Icon name="Folder" width={20} height={20} />}
         </Info>
       </Group>
-      <Group title={props.priority}>
-        <Icon name="Security" color={color} />
-      </Group>
     </Wrapper>
   )
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<IWrapperProps>`
   padding: 0.5rem 0.8rem;
   border-radius: 5px;
   gap: 1rem;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   user-select: none;
+  transition: all 0.3s ease-in-out;
+
+  ${props =>
+    props.isChecked &&
+    css`
+      opacity: 0.75;
+
+      h3 {
+        color: ${theme.colors.gray100};
+        text-decoration: line-through;
+      }
+    `}
 `
 
 const Group = styled.div<IGroupProps>`
@@ -75,10 +83,14 @@ const Group = styled.div<IGroupProps>`
     css`
       flex: 1;
       padding: 0;
+      display: flex;
+      align-items: center;
     `}
 `
 
-const Title = styled.h3``
+const Title = styled.h3`
+  transition: all 0.3s ease-in-out;
+`
 
 const Info = styled.div`
   display: flex;

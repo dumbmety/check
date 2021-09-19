@@ -8,13 +8,12 @@ import TaskCard from "../views/tasks/TaskCard"
 
 export default function Home() {
   const [tasks, setTasks] = useState(TASKS_LIST)
-  const [isAddMode, setIsAddMode] = useState<boolean>(false)
 
-  const handleChangeComplete = (id: string) => {
+  const handleChangeChecked = (id: string) => {
     const allTasks = [...tasks]
     const task = allTasks.find(task => task.id === id)
 
-    if (task?.completed !== undefined) task.completed = !task.completed
+    if (task?.checked !== undefined) task.checked = !task.checked
     setTasks(allTasks)
   }
 
@@ -26,7 +25,7 @@ export default function Home() {
           <Title>Inbox</Title>
         </Header>
 
-        <AddTaskCard onClick={() => setIsAddMode(true)}>
+        <AddTaskCard>
           <AddTaskButton>
             <Icon name="Add" />
           </AddTaskButton>
@@ -34,7 +33,7 @@ export default function Home() {
         </AddTaskCard>
 
         <TasksListWrapper>
-          {TASKS_LIST.map(task => (
+          {TASKS_LIST.filter(task => !task.checked).map(task => (
             <TaskCard
               key={task.id}
               id={task.id}
@@ -42,11 +41,28 @@ export default function Home() {
               description={task.description}
               date={task.date}
               file={task.file}
-              completed={task.completed}
+              checked={task.checked}
               priority={task.priority}
-              onComplete={handleChangeComplete}
+              onChecked={handleChangeChecked}
             />
-          )).reverse()}
+          ))}
+
+          <TasksListChecked>
+            <h2>Checked</h2>
+            {TASKS_LIST.filter(task => task.checked).map(task => (
+              <TaskCard
+                key={task.id}
+                id={task.id}
+                title={task.title}
+                description={task.description}
+                date={task.date}
+                file={task.file}
+                checked={task.checked}
+                priority={task.priority}
+                onChecked={handleChangeChecked}
+              />
+            ))}
+          </TasksListChecked>
         </TasksListWrapper>
       </Wrapper>
     </>
@@ -97,4 +113,12 @@ const TasksListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
+`
+
+const TasksListChecked = styled.div`
+  margin-top: 1rem;
+
+  h2 {
+    padding: 0 0.8rem;
+  }
 `

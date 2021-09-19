@@ -1,4 +1,5 @@
 import Add from "../assets/icons/Add"
+import ArrowTop from "../assets/icons/ArrowTop"
 import Calendar from "../assets/icons/Calendar"
 import CalendarNumber from "../assets/icons/CalendarNumber"
 import Folder from "../assets/icons/Folder"
@@ -15,6 +16,8 @@ export default function getIcon(name: string) {
   switch (name) {
     case "Add":
       return <Add />
+    case "ArrowTop":
+      return <ArrowTop />
     case "Calendar":
       return <Calendar />
     case "CalendarNumber":
