@@ -1,7 +1,9 @@
+import moment from "moment"
 import styled, { css } from "styled-components"
+
+import { theme } from "../../components/styles/ThemeStyles"
 import Checkbox from "../../components/shared/Checkbox"
 import Icon from "../../components/shared/Icon"
-import { theme } from "../../components/styles/ThemeStyles"
 
 interface ITaskCardProps {
   checked: boolean
@@ -43,11 +45,15 @@ export default function TaskCard(props: ITaskCardProps) {
           {props.date && (
             <Date>
               <Icon name="Calendar" width={20} height={20} />
-              <span>{props.date}</span>
+              <span>{moment(props.date).format("ll")}</span>
             </Date>
           )}
-          {props.date && <Icon name="Note" width={20} height={20} />}
-          {props.file && <Icon name="Folder" width={20} height={20} />}
+          {props.date?.length > 0 && (
+            <Icon name="Note" width={20} height={20} />
+          )}
+          {props.file?.length > 0 && (
+            <Icon name="Folder" width={20} height={20} />
+          )}
         </Info>
       </Group>
     </Wrapper>

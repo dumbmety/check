@@ -1,20 +1,33 @@
 import styled from "styled-components"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-import { TASKS_LIST } from "../constants/tasks"
 import { theme } from "../components/styles/ThemeStyles"
+import { changeChecked, getTasks } from "../services/task"
+import { ITask } from "../types/Schemas"
 import Icon from "../components/shared/Icon"
 import TaskCard from "../views/tasks/TaskCard"
 
 export default function Home() {
-  const [tasks, setTasks] = useState(TASKS_LIST)
+  const [tasks, setTasks] = useState<ITask[]>([] as ITask[])
+
+  useEffect(() => {
+    getTasks().then(res => {
+      if (res.ok) setTasks(res.results)
+    })
+  }, [])
 
   const handleChangeChecked = (id: string) => {
     const allTasks = [...tasks]
-    const task = allTasks.find(task => task.id === id)
+    const task = allTasks.find(task => task._id === id)
 
-    if (task?.checked !== undefined) task.checked = !task.checked
-    setTasks(allTasks)
+    if (task?.checked !== undefined) {
+      changeChecked(id, !task.checked).then(res => {
+        if (res.ok) {
+          task.checked = !task.checked
+          setTasks(allTasks)
+        }
+      })
+    }
   }
 
   return (
@@ -33,26 +46,12 @@ export default function Home() {
         </AddTaskCard>
 
         <TasksListWrapper>
-          {TASKS_LIST.filter(task => !task.checked).map(task => (
-            <TaskCard
-              key={task.id}
-              id={task.id}
-              title={task.title}
-              description={task.description}
-              date={task.date}
-              file={task.file}
-              checked={task.checked}
-              priority={task.priority}
-              onChecked={handleChangeChecked}
-            />
-          ))}
-
-          <TasksListChecked>
-            <h2>Checked</h2>
-            {TASKS_LIST.filter(task => task.checked).map(task => (
+          {tasks
+            .filter(task => !task.checked)
+            .map(task => (
               <TaskCard
-                key={task.id}
-                id={task.id}
+                key={task._id}
+                id={task._id}
                 title={task.title}
                 description={task.description}
                 date={task.date}
@@ -62,6 +61,24 @@ export default function Home() {
                 onChecked={handleChangeChecked}
               />
             ))}
+
+          <TasksListChecked>
+            <h2>Checked</h2>
+            {tasks
+              .filter(task => task.checked)
+              .map(task => (
+                <TaskCard
+                  key={task._id}
+                  id={task._id}
+                  title={task.title}
+                  description={task.description}
+                  date={task.date}
+                  file={task.file}
+                  checked={task.checked}
+                  priority={task.priority}
+                  onChecked={handleChangeChecked}
+                />
+              ))}
           </TasksListChecked>
         </TasksListWrapper>
       </Wrapper>
