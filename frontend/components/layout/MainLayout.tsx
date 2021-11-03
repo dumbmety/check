@@ -1,29 +1,15 @@
 import SimpleBar from "simplebar-react"
-import styled from "styled-components"
 import Navigations from "./Navigations"
 
-interface IMainLayoutProps {
-  children: any
-}
-
-export default function MainLayout(props: IMainLayoutProps) {
+const MainLayout: React.FC = ({ children }) => {
   return (
     <SimpleBar style={{ maxHeight: "100vh" }}>
-      <Layout>
+      <div className="flex min-h-screen">
         <Navigations />
-        <Content>{props.children}</Content>
-      </Layout>
+        <main className="flex-1 ml-[300px] py-24 px-40">{children}</main>
+      </div>
     </SimpleBar>
   )
 }
 
-const Layout = styled.div`
-  display: flex;
-  min-height: 100vh;
-`
-
-const Content = styled.main`
-  flex: 1;
-  margin-left: 300px;
-  padding: 6rem 10rem;
-`
+export default MainLayout

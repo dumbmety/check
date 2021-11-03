@@ -1,7 +1,4 @@
 import Link from "next/link"
-import styled from "styled-components"
-
-import { theme } from "../styles/ThemeStyles"
 import Icon from "../shared/Icon"
 
 const list_items = [
@@ -14,48 +11,18 @@ const list_items = [
 
 export default function MenuItems() {
   return (
-    <Menu>
+    <ul className="flex flex-col space-y-[2px] select-none mt-4">
       {list_items.map(item => (
-        <Item key={item.url}>
+        <li key={item.url} className="text-sm">
           <Link href={item.url}>
-            <a>
+            <a className="flex space-x-2 p-2 items-center text-white300 rounded transition duration-150 ease-in-out hover:bg-black200 active:bg-black100">
               <Icon width={20} height={20} name={item.icon} />
               <span style={{ flex: 1 }}>{item.name}</span>
               <span>{item.number}</span>
             </a>
           </Link>
-        </Item>
+        </li>
       ))}
-    </Menu>
+    </ul>
   )
 }
-
-const Menu = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  user-select: none;
-  margin-top: 1rem;
-`
-
-const Item = styled.li`
-  font-size: 0.9rem;
-
-  a {
-    display: flex;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    align-items: center;
-    color: ${theme.colors.white300};
-    border-radius: 5px;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: ${theme.colors.black200};
-    }
-
-    &:active {
-      background: ${theme.colors.black100};
-    }
-  }
-`
