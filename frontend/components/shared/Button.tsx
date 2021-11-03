@@ -3,6 +3,7 @@ import { theme } from "../styles/ThemeStyles"
 
 interface IButtonProps {
   children: any
+  style?: any
 
   fluid?: boolean
   disabled?: boolean
@@ -16,6 +17,7 @@ interface IButtonProps {
 }
 
 interface IStyledButtonProps {
+  btnStyle?: any
   btnMode: "primary" | "secondary"
   btnSize?: "sm" | "md" | "lg"
   btnVariant: "solid" | "outline" | "ghost"
@@ -30,6 +32,7 @@ export default function Button(props: IButtonProps) {
     <StyledButton
       disabled={props.disabled}
       btnMode={props.mode}
+      btnStyle={props.style}
       btnSize={props.size || "md"}
       btnVariant={props.variant || "solid"}
       onClick={handleClick}
@@ -116,7 +119,7 @@ const StyledButton = styled.button<IStyledButtonProps>`
     props.btnMode === "secondary" &&
     props.btnVariant === "outline" &&
     css`
-      border-color: 1px solid ${theme.colors.black100};
+      border: 1px solid transparent;
       &:hover {
         background: ${theme.colors.black200};
         border-color: ${theme.colors.black200};
@@ -126,4 +129,11 @@ const StyledButton = styled.button<IStyledButtonProps>`
         border-color: ${theme.colors.black100};
       }
     `}
+
+  ${props =>
+    props.btnStyle
+      ? css`
+          ${props.btnStyle}
+        `
+      : null}
 `

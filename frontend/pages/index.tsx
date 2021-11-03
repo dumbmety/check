@@ -6,8 +6,11 @@ import { changeChecked, getTasks } from "../services/task"
 import { ITask } from "../types/Schemas"
 import Icon from "../components/shared/Icon"
 import TaskCard from "../views/tasks/TaskCard"
+import Modal from "../components/shared/Modal"
+import AddTaskModal from "../components/modals/AddTaskModal"
 
 export default function Home() {
+  const [openAddModal, setOpenAddModal] = useState<boolean>(false)
   const [tasks, setTasks] = useState<ITask[]>([] as ITask[])
 
   useEffect(() => {
@@ -32,13 +35,20 @@ export default function Home() {
 
   return (
     <>
+      <AddTaskModal
+        isOpen={openAddModal}
+        onOkay={() => setOpenAddModal(false)}
+        onClose={() => setOpenAddModal(false)}
+        onCancel={() => setOpenAddModal(false)}
+      />
+
       <Wrapper>
         <Header>
           <Icon name="Inbox" />
           <Title>Inbox</Title>
         </Header>
 
-        <AddTaskCard>
+        <AddTaskCard onClick={() => setOpenAddModal(true)}>
           <AddTaskButton>
             <Icon name="Add" />
           </AddTaskButton>
