@@ -1,34 +1,9 @@
-import styled from "styled-components"
-import { ReactNode, useEffect } from "react"
+import { useEffect } from "react"
 import { XIcon } from "@heroicons/react/solid"
 import { AnimatePresence, motion } from "framer-motion"
 
-import { theme } from "../styles/ThemeStyles"
+import { IModal } from "../../types/Components"
 import Button from "./Button"
-
-interface IModal {
-  name: string
-  content: ReactNode
-
-  minWidth?: number
-
-  title?: string
-  className?: string
-
-  hideFooter?: boolean
-  hideCloseButton?: boolean
-
-  okayButton?: string
-  loadingOkayButton?: boolean
-  disabledOkayButton?: boolean
-
-  cancelButton?: string
-
-  isOpen: boolean
-  onOkay: () => void
-  onClose: () => void
-  onCancel: () => void
-}
 
 const dropIn = {
   exit: { scale: 0.75, opacity: 0 },
@@ -50,7 +25,8 @@ export default function Modal(props: IModal) {
       onExitComplete={() => null}
     >
       {props.isOpen && (
-        <Backdrop
+        <motion.div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 grid place-items-center"
           onClick={props.onClose}
           transition={{ duration: 0.2 }}
           initial={{ opacity: 0 }}
@@ -58,7 +34,8 @@ export default function Modal(props: IModal) {
           exit={{ opacity: 0 }}
           style={{ margin: 0 }}
         >
-          <Wrapper
+          <motion.div
+            className="space-y-4 flex flex-col rounded-md bg-black500 shadow-xl"
             onClick={e => e.stopPropagation()}
             data-model={`modal-${props.name}`}
             transition={{ duration: 0.2 }}
@@ -70,30 +47,25 @@ export default function Modal(props: IModal) {
           >
             {/* Header */}
             {props.title && (
-              <Header>
-                <Title>{props.title}</Title>
+              <header className="p-4 pb-0 flex items-center justify-between space-x-2">
+                <h2 className="text-lg font-semibold">{props.title}</h2>
                 <Button
                   mode="secondary"
                   variant="outline"
                   onClick={props.onClose}
-                  style={{
-                    width: 32,
-                    height: 32,
-                    padding: 0,
-                    display: "grid",
-                    placeItems: "center",
-                  }}
+                  className="w-8 h-8 flex items-center justify-center"
+                  style={{ padding: 0 }}
                 >
                   <XIcon width={18} height={18} fill="white" />
                 </Button>
-              </Header>
+              </header>
             )}
 
-            <Content>{props.content}</Content>
+            <div className="px-4">{props.content}</div>
 
             {/* Footer */}
             {!props.hideFooter && (
-              <Footer>
+              <footer className="flex flex-row-reverse items-center space-x-2 space-x-reverse py-3 px-4 border-t border-black300">
                 {props.okayButton && (
                   <Button
                     mode="primary"
@@ -113,55 +85,11 @@ export default function Modal(props: IModal) {
                     {props.cancelButton}
                   </Button>
                 )}
-              </Footer>
+              </footer>
             )}
-          </Wrapper>
-        </Backdrop>
+          </motion.div>
+        </motion.div>
       )}
     </AnimatePresence>
   )
 }
-
-const Backdrop = styled(motion.div)`
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 40;
-  display: grid;
-  place-items: center;
-`
-
-const Wrapper = styled(motion.div)`
-  gap: 16px;
-  display: flex;
-  flex-direction: column;
-  background: ${theme.colors.black500};
-  border-radius: 8px;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
-`
-
-const Header = styled.header`
-  gap: 8px;
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const Title = styled.h2`
-  font-size: 1.125rem;
-  font-weight: 500;
-`
-
-const Content = styled.div`
-  padding: 0 16px;
-`
-
-const Footer = styled.footer`
-  gap: 8px;
-  display: flex;
-  padding: 10px 16px;
-  align-items: center;
-  flex-direction: row-reverse;
-  border-top: 1px solid ${theme.colors.black300};
-`

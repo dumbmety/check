@@ -1,9 +1,9 @@
-import styled, { css } from "styled-components"
-import { theme } from "../styles/ThemeStyles"
+import { classNames } from "../../utils/classNames"
 
 interface IButtonProps {
   children: any
   style?: any
+  className?: string
 
   fluid?: boolean
   disabled?: boolean
@@ -16,124 +16,47 @@ interface IButtonProps {
   onClick?: () => void
 }
 
-interface IStyledButtonProps {
-  btnStyle?: any
-  btnMode: "primary" | "secondary"
-  btnSize?: "sm" | "md" | "lg"
-  btnVariant: "solid" | "outline" | "ghost"
-}
-
 export default function Button(props: IButtonProps) {
+  const size = props.size || "md"
+
   const handleClick = () => {
     if (!props.disabled && typeof props.onClick === "function") props.onClick()
   }
 
   return (
-    <StyledButton
+    <button
+      className={classNames(
+        "text-white bg-none border border-transparent",
+        "select-none rounded-md transition duration-150 ease-in-out",
+        "disabled:opacity-50 disabled:pointer-events-none",
+
+        size === "lg" && "text-lg font-bold py-4 px-6",
+        size === "md" && "py-2 px-5",
+        size === "sm" && "py-1.5 px-4",
+
+        props.mode === "primary" &&
+          props.variant === "solid" &&
+          "bg-indigo500 hover:bg-indigo600 active:bg-indigo700",
+
+        props.mode === "secondary" &&
+          props.variant === "solid" &&
+          "bg-black300 hover:bg-black200 active:bg-black100",
+
+        props.mode === "secondary" &&
+          props.variant === "ghost" &&
+          "hover:bg-black300 active:bg-black200",
+
+        props.mode === "secondary" &&
+          props.variant === "outline" &&
+          "hover:bg-black200 active:bg-black100",
+
+        props.className
+      )}
+      style={props.style}
       disabled={props.disabled}
-      btnMode={props.mode}
-      btnStyle={props.style}
-      btnSize={props.size || "md"}
-      btnVariant={props.variant || "solid"}
       onClick={handleClick}
     >
       {props.children}
-    </StyledButton>
+    </button>
   )
 }
-
-const StyledButton = styled.button<IStyledButtonProps>`
-  color: #ffffff;
-  background: none;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  transition: all 0.2s ease-in-out;
-  user-select: none;
-
-  &:disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  ${props =>
-    props.btnSize === "lg" &&
-    css`
-      font-size: 1.2rem;
-      font-weight: 600;
-      padding: 0.6rem 1.5rem;
-    `}
-
-  ${props =>
-    props.btnSize === "md" &&
-    css`
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-    `}
-
-  ${props =>
-    props.btnSize === "sm" &&
-    css`
-      font-size: 0.9rem;
-      padding: 0.4rem 0.9rem;
-    `}
-
-  ${props =>
-    props.btnMode === "primary" &&
-    props.btnVariant === "solid" &&
-    css`
-      background: ${theme.colors.indigo500};
-      &:hover {
-        background: ${theme.colors.indigo600};
-      }
-      &:active {
-        background: ${theme.colors.indigo700};
-      }
-    `}
-
-  ${props =>
-    props.btnMode === "secondary" &&
-    props.btnVariant === "solid" &&
-    css`
-      background: ${theme.colors.black300};
-      &:hover {
-        background: ${theme.colors.black200};
-      }
-      &:active {
-        background: ${theme.colors.black100};
-      }
-    `}
-
-  ${props =>
-    props.btnMode === "secondary" &&
-    props.btnVariant === "ghost" &&
-    css`
-      &:hover {
-        background: ${theme.colors.black300};
-      }
-      &:active {
-        background: ${theme.colors.black200};
-      }
-    `}
-
-  ${props =>
-    props.btnMode === "secondary" &&
-    props.btnVariant === "outline" &&
-    css`
-      border: 1px solid transparent;
-      &:hover {
-        background: ${theme.colors.black200};
-        border-color: ${theme.colors.black200};
-      }
-      &:active {
-        background: ${theme.colors.black100};
-        border-color: ${theme.colors.black100};
-      }
-    `}
-
-  ${props =>
-    props.btnStyle
-      ? css`
-          ${props.btnStyle}
-        `
-      : null}
-`
