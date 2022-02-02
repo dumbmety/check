@@ -1,23 +1,19 @@
-import styled from "styled-components"
-import { useEffect, useState } from "react"
+import Head from "next/head"
+import { useState } from "react"
 
-import { theme } from "../components/styles/ThemeStyles"
 import { changeChecked, getTasks } from "../services/task"
 import { ITask } from "../types/Schemas"
 import Icon from "../components/shared/Icon"
 import TaskCard from "../views/tasks/TaskCard"
-import Modal from "../components/shared/Modal"
 import AddTaskModal from "../components/modals/AddTaskModal"
 
-export default function Home() {
-  const [openAddModal, setOpenAddModal] = useState<boolean>(false)
-  const [tasks, setTasks] = useState<ITask[]>([] as ITask[])
+type Props = {
+  tasks: ITask[]
+}
 
-  useEffect(() => {
-    getTasks().then(res => {
-      if (res.ok) setTasks(res.results)
-    })
-  }, [])
+export default function Home(props: Props) {
+  const [openAddModal, setOpenAddModal] = useState<boolean>(false)
+  const [tasks, setTasks] = useState<ITask[]>(props.tasks)
 
   const handleChangeChecked = (id: string) => {
     const allTasks = [...tasks]
@@ -35,6 +31,10 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Inbox • Check</title>
+      </Head>
+
       <AddTaskModal
         isOpen={openAddModal}
         onOkay={() => setOpenAddModal(false)}
@@ -42,20 +42,23 @@ export default function Home() {
         onCancel={() => setOpenAddModal(false)}
       />
 
-      <Wrapper>
-        <Header>
+      <div className="w-full m-auto max-w-[650px]">
+        <header className="flex items-center gap-2 px-3">
           <Icon name="Inbox" />
-          <Title>Inbox</Title>
-        </Header>
+          <h1 className="text-2xl">Inbox</h1>
+        </header>
 
-        <AddTaskCard onClick={() => setOpenAddModal(true)}>
-          <AddTaskButton>
+        <div
+          className="my-4 py-3 px-4 gap-2 rounded-md flex items-center select-none cursor-pointer bg-black300"
+          onClick={() => setOpenAddModal(true)}
+        >
+          <button className="grid place-items-center">
             <Icon name="Add" />
-          </AddTaskButton>
-          <AddTaskTitle>Add Task</AddTaskTitle>
-        </AddTaskCard>
+          </button>
+          <p className="flex-1 text-white300">Add Task</p>
+        </div>
 
-        <TasksListWrapper>
+        <div className="mt-8 gap-2 flex flex-col">
           {tasks
             .filter(task => !task.checked)
             .map(task => (
@@ -72,8 +75,8 @@ export default function Home() {
               />
             ))}
 
-          <TasksListChecked>
-            <h2>Checked</h2>
+          <div className="mt-4">
+            <h2 className="px-3">Checked</h2>
             {tasks
               .filter(task => task.checked)
               .map(task => (
@@ -89,63 +92,19 @@ export default function Home() {
                   onChecked={handleChangeChecked}
                 />
               ))}
-          </TasksListChecked>
-        </TasksListWrapper>
-      </Wrapper>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
 
-const Wrapper = styled.div`
-  width: 100%;
-  margin: auto;
-  max-width: 650px;
-`
+export async function getStaticProps() {
+  const res = await getTasks()
 
-const Header = styled.header`
-  gap: 0.5rem;
-  display: flex;
-  align-items: center;
-  padding: 0 0.8rem;
-`
-
-const Title = styled.h1`
-  font-size: 1.5rem;
-`
-
-const AddTaskCard = styled.div`
-  margin: 1rem 0;
-  padding: 0.8rem 1rem;
-  border-radius: 5px;
-  gap: 0.5rem;
-  display: flex;
-  align-items: center;
-  background: ${theme.colors.black300};
-  user-select: none;
-  cursor: pointer;
-`
-
-const AddTaskButton = styled.button`
-  display: grid;
-  place-items: center;
-`
-
-const AddTaskTitle = styled.p`
-  flex: 1;
-  color: ${theme.colors.white300};
-`
-
-const TasksListWrapper = styled.div`
-  gap: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  margin-top: 2rem;
-`
-
-const TasksListChecked = styled.div`
-  margin-top: 1rem;
-
-  h2 {
-    padding: 0 0.8rem;
+  return {
+    props: {
+      tasks: res.results,
+    },
   }
-`
+}

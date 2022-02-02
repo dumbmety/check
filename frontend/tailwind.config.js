@@ -1,7 +1,5 @@
 module.exports = {
-  mode: "jit",
-  darkMode: false,
-  purge: [
+  content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./views/**/*.{ts,tsx}",

@@ -1,5 +1,4 @@
-import styled, { css } from "styled-components"
-import { theme } from "../styles/ThemeStyles"
+import { classNames } from "../../utils/classNames"
 import Icon from "./Icon"
 
 interface ICheckboxProps {
@@ -9,68 +8,35 @@ interface ICheckboxProps {
   onClick: () => void
 }
 
-interface IWrapperProps {
-  isChecked?: boolean
-  isDisabled?: boolean
-}
-
 export default function Checkbox(props: ICheckboxProps) {
   const handleClick = () => {
     if (!props.disabled && typeof props.onClick === "function") props.onClick()
   }
 
   return (
-    <Wrapper
-      isChecked={props.checked}
-      isDisabled={props.disabled}
+    <div
       onClick={handleClick}
+      className={classNames(
+        "w-6 h-6 cursor-pointer",
+        "border border-transparent",
+        "grid place-items-center rounded-lg",
+        "transition duration-100 ease-in-out",
+
+        props.disabled && "pointer-events-none opacity-50",
+        props.checked
+          ? "bg-indigo500 hover:bg-indigo400 active:bg-indigo300"
+          : "bg-black100 hover:bg-black200 active:bg-black300"
+      )}
     >
-      <Icon name="Tick" width={22} height={22} />
-    </Wrapper>
+      <Icon
+        name="Tick"
+        width={22}
+        height={22}
+        className={classNames(
+          "transition duration-100 ease-in-out",
+          !props.checked && "opacity-0"
+        )}
+      />
+    </div>
   )
 }
-
-const Wrapper = styled.div<IWrapperProps>`
-  width: 24px;
-  height: 24px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  transition: all 0.2s ease-in-out;
-  background: ${theme.colors.black100};
-
-  &:hover {
-    background: ${theme.colors.black200};
-  }
-
-  &:active {
-    background: ${theme.colors.black300};
-  }
-
-  svg {
-    transition: all 0.2s ease-in-out;
-  }
-
-  ${props => props.isDisabled && `pointer-events: none; opacity: 0.5;`}
-
-  ${props =>
-    props.isChecked
-      ? css`
-          background: ${theme.colors.indigo500};
-
-          &:hover {
-            background: ${theme.colors.indigo600};
-          }
-
-          &:active {
-            background: ${theme.colors.indigo700};
-          }
-        `
-      : css`
-          svg {
-            opacity: 0;
-          }
-        `}
-`

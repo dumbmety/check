@@ -9,7 +9,7 @@ interface IUserStatusProps {
 
 export default function UserStatus(props: IUserStatusProps) {
   return (
-    <Stack direction="row" align="center">
+    <Stack direction="flex-row" align="items-center">
       <div className="relative w-9 h-9">
         <img
           className={classNames(

@@ -1,36 +1,35 @@
 import React from "react"
-import styled from "styled-components"
+import { classNames } from "../../utils/classNames"
 
 interface IStackProps {
-  direction: "row" | "column"
-  justify?: "start" | "center" | "end" | "space-around" | "space-between"
-  align?: "start" | "center" | "end" | "space-around" | "space-between"
+  direction: "flex-row" | "flex-row-reverse" | "flex-col" | "flex-col-reverse"
+  justify?:
+    | "justify-start"
+    | "justify-center"
+    | "justify-end"
+    | "justify-around"
+    | "justify-between"
+  align?:
+    | "items-start"
+    | "items-center"
+    | "items-end"
+    | "items-stretch"
+    | "items-baseline"
 
   children: React.ReactNode
 }
 
-interface IStackWrapperProps {
-  stackDir: "row" | "column"
-  justify?: "start" | "center" | "end" | "space-around" | "space-between"
-  align?: "start" | "center" | "end" | "space-around" | "space-between"
-}
-
 export default function Stack(props: IStackProps) {
   return (
-    <Wrapper
-      stackDir={props.direction}
-      justify={props.justify}
-      align={props.align}
+    <div
+      className={classNames(
+        "flex",
+        props.direction,
+        props.justify,
+        props.align
+      )}
     >
       {props.children}
-    </Wrapper>
+    </div>
   )
 }
-
-const Wrapper = styled.div<IStackWrapperProps>`
-  display: flex;
-  flex-direction: ${props => props.stackDir};
-
-  ${props => props.align && `align-items: ${props.align};`}
-  ${props => props.justify && `justify-content: ${props.justify};`}
-`

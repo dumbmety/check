@@ -10,7 +10,7 @@ const folders = [
 
 export default function Folders() {
   return (
-    <Stack direction="column">
+    <Stack direction="flex-col">
       <h2 className="text-sm font-bold p-2 text-gray100">Folders</h2>
       <ul className="flex flex-col">
         {folders.map(folder => (

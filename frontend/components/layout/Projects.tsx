@@ -23,7 +23,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <Stack direction="column">
+    <Stack direction="flex-col">
       <h2 className="text-sm font-bold p-2 text-gray100">Projects</h2>
       <ul className="flex flex-col">
         {projects.map(project => (

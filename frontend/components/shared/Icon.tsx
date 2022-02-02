@@ -7,6 +7,7 @@ interface IIconProps {
   color?: string
   width?: number
   height?: number
+  className?: string
 }
 
 interface ISVGProps {
@@ -22,6 +23,7 @@ export default function Icon(props: IIconProps) {
       svgColor={props.color}
       width={props.width || 24}
       height={props.height || 24}
+      className={props.className}
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
