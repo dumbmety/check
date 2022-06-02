@@ -15,7 +15,7 @@ export default function MenuItems() {
       {list_items.map(item => (
         <li key={item.url} className="text-sm">
           <Link href={item.url}>
-            <a className="flex space-x-2 p-2 items-center text-white300 rounded transition duration-150 ease-in-out hover:bg-black200 active:bg-black100">
+            <a className="flex space-x-2 p-2 items-center text-gray-300 rounded-lg transition duration-150 ease-in-out hover:bg-gray-700 active:bg-gray-600">
               <Icon width={20} height={20} name={item.icon} />
               <span style={{ flex: 1 }}>{item.name}</span>
               <span>{item.number}</span>

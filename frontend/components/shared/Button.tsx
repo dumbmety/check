@@ -36,7 +36,7 @@ export default function Button(props: IButtonProps) {
 
         props.mode === "primary" &&
           props.variant === "solid" &&
-          "bg-indigo500 hover:bg-indigo600 active:bg-indigo700",
+          "bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700",
 
         props.mode === "secondary" &&
           props.variant === "solid" &&
@@ -44,11 +44,11 @@ export default function Button(props: IButtonProps) {
 
         props.mode === "secondary" &&
           props.variant === "ghost" &&
-          "hover:bg-black300 active:bg-black200",
+          "hover:bg-gray-600 active:bg-gray-700",
 
         props.mode === "secondary" &&
           props.variant === "outline" &&
-          "hover:bg-black200 active:bg-black100",
+          "hover:bg-gray-600 active:bg-gray-500",
 
         props.className
       )}

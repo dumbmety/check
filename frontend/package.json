@@ -1,12 +1,7 @@
 {
   "name": "check",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
-  "prettier": {
-    "arrowParens": "avoid",
-    "semi": false,
-    "singleQuote": false
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

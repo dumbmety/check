@@ -29,7 +29,7 @@ export default function Projects() {
         {projects.map(project => (
           <li key={project.href} className="text-sm">
             <Link href={`/project/${project.href}`}>
-              <a className="flex space-x-2 p-2 items-center text-white300 rounded transition duration-150 ease-in-out hover:bg-black200 active:bg-black100">
+              <a className="flex space-x-2 p-2 items-center text-gray-300 rounded transition duration-150 ease-in-out hover:bg-gray-700 active:bg-gray-600">
                 <Icon name={project.icon} color={project.color} />
                 <span style={{ flex: 1 }}>{project.name}</span>
                 <span>{project.number}</span>

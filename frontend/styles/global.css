@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply h-screen antialiased text-white bg-black500;
+    @apply h-screen antialiased text-white bg-gray-900;
   }
 
   body,
@@ -45,5 +45,5 @@
 }
 
 .simplebar-scrollbar:before {
-  @apply bg-gray200;
+  @apply bg-gray-200;
 }

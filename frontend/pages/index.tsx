@@ -49,7 +49,7 @@ export default function Home(props: Props) {
         </header>
 
         <div
-          className="my-4 py-3 px-4 gap-2 rounded-md flex items-center select-none cursor-pointer bg-black300"
+          className="my-4 py-3 px-4 gap-2 rounded-md flex items-center select-none cursor-pointer bg-gray-800"
           onClick={() => setOpenAddModal(true)}
         >
           <button className="grid place-items-center">

@@ -10,9 +10,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        indigo100: "#8B96F4",
-        indigo200: "#818DF3",
-        indigo300: "#7885F2",
         indigo400: "#6F7DF1",
         indigo500: "#5C6CEF",
         indigo600: "#4755c5",

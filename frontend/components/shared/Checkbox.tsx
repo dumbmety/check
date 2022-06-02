@@ -24,8 +24,8 @@ export default function Checkbox(props: ICheckboxProps) {
 
         props.disabled && "pointer-events-none opacity-50",
         props.checked
-          ? "bg-indigo500 hover:bg-indigo400 active:bg-indigo300"
-          : "bg-black100 hover:bg-black200 active:bg-black300"
+          ? "bg-indigo-500 hover:bg-indigo-400 active:bg-indigo-300"
+          : "bg-gray-800 hover:bg-gray-700 active:bg-gray-600"
       )}
     >
       <Icon

@@ -35,7 +35,7 @@ export default function Modal(props: IModal) {
           style={{ margin: 0 }}
         >
           <motion.div
-            className="space-y-4 flex flex-col rounded-md bg-black500 shadow-xl"
+            className="space-y-4 flex flex-col rounded-md bg-gray-700 shadow-xl"
             onClick={e => e.stopPropagation()}
             data-model={`modal-${props.name}`}
             transition={{ duration: 0.2 }}
@@ -65,7 +65,7 @@ export default function Modal(props: IModal) {
 
             {/* Footer */}
             {!props.hideFooter && (
-              <footer className="flex flex-row-reverse items-center space-x-2 space-x-reverse py-3 px-4 border-t border-black300">
+              <footer className="flex flex-row-reverse items-center space-x-2 space-x-reverse py-3 px-4 border-t border-gray-600">
                 {props.okayButton && (
                   <Button
                     mode="primary"
